@@ -109,7 +109,7 @@ main {
 }
 
 .NewsTravel {
-	max-width: 275px;
+	max-width: 255px;
 	height: auto;
 	margin-top: 70px;
 	margin-left: 1090px;
@@ -228,6 +228,18 @@ main {
 		height: auto;
 		display: flex;
 	}
+	.nav-text{
+		font-size: 100%;
+		margin-top: 0cm;
+		margin-bottom: 0cm;
+		font-weight:normal;
+	}
+	.myname-text {
+		font-size: 100%;
+		/* padding-top: 0.1cm; */
+		padding-bottom: 0.1cm;
+		/* font-weight:normal; */
+	}
 	.my-pic{
 		padding-top: 0cm;
 	}
@@ -252,5 +264,24 @@ main {
 		max-width: 800px;
 		margin-left: 0px;
 		margin-top: 0px;
+	}
+	.contact{
+		padding-left: 0m;
+		padding-bottom: 0cm;
+		white-space: nowrap;
+	}
+	.small-a{
+		font-size: 60%;
+		padding-top: 0cm;
+	}
+	.small-b{
+		font-size: 82%;
+		line-height: normal;
+		margin-top: -32px;
+	}
+	.contactB{
+		font-size: 82%;
+		margin-top: -30px;
+		margin-bottom: -20px;
 	}
 }
