@@ -14,14 +14,18 @@
 <body>
   <!-- <svg width="200" height="1180"></svg> -->
   <header>
+    
+  </header>
+
+  <main>
     <div class="nav-wrapper">
       <div class="my-pic">
         <img src="img/mypic3.jpg" style="border-radius: 7px;" onmouseover="this.src='img/fun.jpg'" onmouseout="this.src='img/mypic3.jpg'" alt="A photo of CH" width="160" height="213.3333">
       </div>
-      <a href="index.html">
-        <div class="myname-text" id="myname">Chang Han &nbsp; 韩畅</div>
-      </a>
       <nav>
+        <a href="index.html">
+          <div class="myname-text" id="myname">Chang Han &nbsp; 韩畅</div>
+        </a>
         <a href="index.html">
           <div class="nav-text" id="home-button">Home</div>
         </a>
@@ -50,11 +54,10 @@
         </p>
         <p class="small-b">401 N5, SDU(QD) <br>72 Binhai Road <br> Jimo District, Qingdao <br> Shandong, China </p>
       </div>
-      <img src="img/sdulogo.png" align="left" alt="SDUlogo" width="150" style="padding-top: 0.2cm; padding-left: 0.2cm;" >
+      <div class="sdulogo">
+       <img src="img/sdulogo.png" align="left" alt="SDUlogo" width="150" style="padding-top: 0.2cm; padding-left: 0.2cm;" >
+      </div>
     </div>
-  </header>
-
-  <main>
     <div class="middle">
     <div class="intro">
       <h2> Hello World, it's Chang here! </h2>
@@ -116,7 +119,12 @@
       <div class="travel-text">Tomato greenhouse — temporary Utopia for tomatoes and anyone who enjoys the warmth. Winter, 2022</div>     
       <div class="travel-text">...</div>
     </div>
-  </div>
+    <div class="footer-style">
+      <hr size="2" noshade="true">
+      <div class="footer">Last updated at Aug. 2022 &nbsp; &nbsp; &nbsp; ©ChangHan</div>
+      <br>
+    </div>
+    </div>
     <div class="NewsTravel">
       <b style="margin-top: 0cm; padding: top 0cm; font-size: large; font-family: 'Arial';">News & Travel</b>
         <br>
@@ -124,14 +132,9 @@
         <div class="travel-text">8/10: Attending GAMES2022, Changsha, China.</div>
         <div class="travel-text">7/22: Attending ChinaVis2022, Xining, China. (Excited for my <strong>FIRST</strong> on-site conference!)</div>
     </div>
+
   </main>
-  <footer>
-    <div class="footer-style">
-      <hr size="2" noshade="true">
-      <div class="footer">Last updated at Aug. 2022 &nbsp; &nbsp; &nbsp; ©ChangHan</div>
-      <br>
-    </div>
-  </footer>
+
   <script type="text/javascript" src="d3.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
 </body>
