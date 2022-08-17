@@ -210,8 +210,9 @@ main {
 	color: rgba(94, 93, 93, 0.776);
 }
 .travel-text{
+	font-family: "Arial";
 	font-style: italic;
-	font-size: 100%;
+	font-size: 109%;
 	color: rgb(18, 18, 18);
 	padding-bottom: 0.2cm;
 }
