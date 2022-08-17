@@ -4,11 +4,14 @@
 }
 
 @font-face {
-    font-family: "Verdant";
-    src: url("./font/Verdant/Verdant.ttf");
+    font-family: "STXinwei";
+    src: url("./font/stxinwei/chinese.stxinwei.ttf");
 }
 
-
+@font-face {
+    font-family: "Segoe UI";
+    src: url("./font/seui/Segoe\ UI.ttf");
+}
 /* a, a > tt {
 	color: #A20A35;
 	font-weight: bold;
