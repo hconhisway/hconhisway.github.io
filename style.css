@@ -1,0 +1,207 @@
+@font-face {
+    font-family: "Homenaje-Regular";
+    src: url("./font/homenaje/Homenaje-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Verdant";
+    src: url("./font/Verdant/Verdant.ttf");
+}
+
+
+/* a, a > tt {
+	color: #A20A35;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a:hover{
+	background-color: #e8e8e8;
+	color: #FEAF2C;
+	border-bottom: 1.6px solid #FEAF2C;
+} */
+
+svg{
+	float:none;
+	position: fixed;
+	/* margin-top: -1180px; */
+}
+
+a, a > tt {
+	font-family: "Segoe UI";
+	color: #960000;
+	font-weight: normal;
+	text-decoration: none;
+	/* font-weight: bold; */
+	/* border-bottom: 2.6px solid #800000; */
+}
+
+a:hover{
+	background-color: #E3E0D1;
+	border-bottom: 2.6px solid #800000;
+	/* color: #800000; */
+}
+
+p {
+	color: #333333;
+	font-family:'Segoe UI';
+	font-size: 120%;
+	padding:0;margin: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	padding-top: 0.45cm;
+	line-height: 0.8cm;
+}
+
+h2 {
+	/* margin-top: 0.3cm; */
+	margin-bottom: 0.1cm;
+	font-weight: normal;
+	color: #333333;
+}
+
+header {
+    width: 205px;
+    height: 100%;
+	text-align: center;
+	position: fixed;
+	margin-left: 0px;
+	
+}
+
+footer {
+    width: 810px;
+    height: 30px;
+	text-align: center;
+	/* position: fixed; */
+	margin-left: 257px;
+	
+}
+
+main {
+	width: 1210px;
+	height: 100%;
+	/* columns: 2; */
+	/* padding-left: 690px; */
+	/* position: fixed; */
+
+	/* padding-top: 17px; */
+}
+
+.middle {
+	float: left;
+	width: 810px;
+	height: 100%;
+	margin-left: 257px;
+	/* position: fixed; */
+	/* padding-top: 17px; */
+}
+
+.NewsTravel {
+	width: 305px;
+	height: auto;
+	margin-top: 70px;
+	margin-left: 1090px;
+	background-color: #dddbdb8a;
+	position: fixed;
+	border-radius: 7px;
+}
+.nav-wrapper{
+	height: 740px;
+	/* background-color: #e6e6e4ac; */
+}
+.myname-text {
+	text-align: left;
+    font-family: "Homenaje-Regular", "STXinwei" ;
+	font-size: 170%;
+	padding-top: 0.1cm;
+	padding-bottom: 0.62cm;
+	padding-left: 0.5cm;
+	color: black;
+	text-decoration: none;
+	/* font-weight:normal; */
+}
+
+.myname-text2 {
+	text-align: left;
+    font-family: "Segoe UI";
+	font-size: 120%;
+	padding-top: 0cm;
+	padding-bottom: 0cm;
+	padding-left: 0cm;
+	color: black;
+	text-decoration: none;
+}
+
+.small-a{
+	font-size: 82%;
+	padding-top: 0.1cm;
+}
+.small-b{
+	font-size: 82%;
+	line-height: normal;
+	margin-top: -12px;
+}
+.nav-text{
+	font-family: "Segoe UI";
+	color: #800000;
+	text-align: left;
+	padding-left: 0.55cm;
+	font-size: 120%;
+	margin-top: 0.1cm;
+	margin-bottom: 0.15cm;
+	font-weight:normal;
+}
+
+.my-pic{
+	text-align: left;
+	padding-left: 0.55cm;
+	padding-top: 0.6cm;
+	padding-bottom: 0.2cm;
+}
+
+.nav-text:hover{
+	background-color: none;
+	color: #fd9c00;
+}
+
+.nav-text:focus-within{
+	color: black;
+}
+
+.contact{
+	text-align: left;
+	padding-left: 0.55cm;
+	padding-bottom: 0.4cm;
+}
+
+.pub-text{
+	padding-top: 0.5cm;
+}
+
+.pub-title a{
+	font-size: 1.2em;
+	color: black;
+	font-weight: bold;
+	line-height: 145%;
+	/* padding-bottom: 0.1cm; */
+}
+
+.pub-title a:hover{
+	background-color: white;
+}
+
+.pub-author{
+	padding-top: 0.1cm;
+}
+.pub-places {
+	padding-top: 0.1cm;
+	font-style: italic;
+	color: rgba(94, 93, 93, 0.776);
+}
+.travel-text{
+	font-style: italic;
+	font-size: 100%;
+	color: rgb(18, 18, 18);
+	padding-bottom: 0.2cm;
+}
