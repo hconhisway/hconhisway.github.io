@@ -61,6 +61,8 @@ h2 {
 	margin-bottom: 0.1cm;
 	font-weight: normal;
 	color: #333333;
+	font-family:'Arial';
+	font-size: 165%;
 }
 
 header {
@@ -179,6 +181,7 @@ main {
 }
 
 .pub-text{
+	font-family: "Arial";
 	padding-top: 0.5cm;
 }
 
@@ -195,11 +198,15 @@ main {
 }
 
 .pub-author{
+	font-family: "Arial";
+	font-size: 120%;
 	padding-top: 0.1cm;
 }
 .pub-places {
 	padding-top: 0.1cm;
 	font-style: italic;
+	font-family: "Arial";
+	/* font-size: 120%; */
 	color: rgba(94, 93, 93, 0.776);
 }
 .travel-text{
