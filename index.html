@@ -29,9 +29,40 @@
   </header>
 
   <main>
+
+    <div class="hidden"> 
+
+      <script type="text/javascript"> 
+  
+              var images = new Array() 
+  
+              function preload() { 
+  
+                  for (i = 0; i < preload.arguments.length; i++) { 
+  
+                      images[i] = new Image() 
+  
+                      images[i].src = preload.arguments[i] 
+  
+                  } 
+  
+              } 
+  
+              preload(  
+  
+                  "img/pixel1.jpg", 
+  
+                  "img/pixel2.jpg"
+  
+              ) 
+  
+      </script> 
+  
+  </div>
+
     <div class="nav-wrapper">
       <div class="my-pic">
-        <img src="img/mypic3.jpg" style="border-radius: 7px;" onmouseover="this.src='img/fun.jpg'" onmouseout="this.src='img/mypic3.jpg'" alt="A photo of CH" width="160" height="213.3333">
+        <img src="img/hatch.jpg" style="border-radius: 7px;" onmouseover="this.src='img/pixel1.jpg'" onmouseout="this.src='img/hatch.jpg'" alt="A photo of CH" width="160" height="213.3333">
       </div>
       <nav>
           <div class="myname-text" id="myname">Chang Han &nbsp; 韩畅</div>
