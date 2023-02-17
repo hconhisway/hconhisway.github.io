@@ -1,0 +1,7 @@
+SizePairs: Achieving Stable and Balanced Temporal Treemaps using Hierarchical Size-based Pairing
+Chang Han, Jaemin Jo, Anyi Li, Bongshin Lee, Oliver Deussen, Yunhai Wang
+IEEE Transactions on Visualization and Computer Graphics (Proc. IEEE VIS 2022), to appear
+
+Target Netgrams: An Annulus-constrained Stress Model for Radial Graph Visualization
+Mingliang Xue, Yunhai Wang, Chang Han, Jian Zhang, Zheng Wang, Kaiyi Zhang, Christophe Hurter, Jian Zhao, Oliver Deussen
+IEEE Transactions on Visualization and Computer Graphics (early access), 2022
