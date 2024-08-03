@@ -42,7 +42,7 @@ a, a > tt {
 }
 
 a:hover{
-	background-color: #E3E0D1;
+	/* background-color: #E3E0D1; */
 	border-bottom: 2.6px solid #800000;
 	/* color: #800000; */
 }
@@ -181,27 +181,40 @@ main {
 
 .pub-title a{
 	font-size: 1.2em;
-	color: black;
+	/* color: black; */
+	color: #960000;
 	font-weight: bold;
 	line-height: 145%;
 	/* padding-bottom: 0.1cm; */
+}
+
+.pub-materials a{
+	font-size: 1.2em;
+	color: #960000;
+	font-weight:400;
+	line-height: 105%;
+}
+
+.pub-materials a:hover{
+	background-color: white;
 }
 
 .pub-title a:hover{
 	background-color: white;
 }
 
-.pub-author{
-	font-family: "Arial";
-	font-size: 120%;
-	padding-top: 0.1cm;
+.pub-authors{
+	/* font-family: "Arial"; */
+	/* font-size: 120%; */
+	font-size: 1.2em;
 }
 .pub-places {
 	padding-top: 0.1cm;
 	font-style: italic;
 	font-family: "Arial";
 	font-size: 110%;
-	color: rgba(94, 93, 93, 0.776);
+	/* color: rgba(94, 93, 93, 0.776); */
+	color: #616161;
 }
 .travel-text{
 	font-family: "Arial";
