@@ -104,6 +104,11 @@ main {
 	/* padding-top: 17px; */
 }
 
+.pub-materials img {
+	position: relative;
+	top: 2px; /* 调整这个值以控制向下移动的距离 */
+}
+
 .NewsTravel {
 	max-width: 255px;
 	height: auto;
@@ -182,7 +187,7 @@ main {
 .pub-title a{
 	font-size: 1.2em;
 	/* color: black; */
-	color: #960000;
+	color: #616161;
 	font-weight: bold;
 	line-height: 145%;
 	/* padding-bottom: 0.1cm; */
@@ -195,15 +200,25 @@ main {
 	line-height: 105%;
 }
 
-.pub-materials a:hover{
+/* .pub-materials a:hover{
 	background-color: white;
-}
+} */
 
 .pub-title a:hover{
 	background-color: white;
+	border-bottom: 2.6px solid #616161;
 }
 
-.pub-authors{
+.pub-authors a{
+	color: #616161;
+}
+
+.pub-authors a:hover{
+	/* background-color: white; */
+	border-bottom: 2.6px solid #616161;
+}
+
+.pub-authors {
 	/* font-family: "Arial"; */
 	/* font-size: 120%; */
 	font-size: 1.2em;
