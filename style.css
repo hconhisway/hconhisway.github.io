@@ -182,7 +182,7 @@ main {
 .repfigure-container{
 	width: 150px;  /* 正方形的宽度 */
 	height: 120px; /* 正方形的高度 */
-	border: 2px solid #616161; /* 边框设置 */
+	border: 1.7px solid #616161; /* 边框设置 */
 	overflow: hidden; /* 超出部分隐藏 */
 	position: relative;
 	margin-right: 10px;
