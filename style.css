@@ -179,9 +179,32 @@ main {
 	padding-bottom: 0.4cm;
 }
 
+.repfigure-container{
+	width: 150px;  /* 正方形的宽度 */
+	height: 120px; /* 正方形的高度 */
+	border: 1.5px solid #000; /* 边框设置 */
+	overflow: hidden; /* 超出部分隐藏 */
+	position: relative;
+	margin-right: 10px;
+	flex: 0 0 auto; /* 防止容器被压缩 */
+}
+
+.repfigure-container img{
+	height: 120px;
+	width: auto;
+	position: absolute;
+	left: 5px;
+	transition: transform 0.5s ease;
+}
+
+.repfigure-container img:hover{
+	transform: translateX(calc(140px - 100%));
+}
+
 .pub-text{
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
+	/* align-items: flex-start; */
 	font-family: "Arial";
 	padding-top: 0.5cm;
 }
@@ -226,6 +249,11 @@ main {
 	/* font-size: 120%; */
 	font-size: 1.2em;
 }
+
+.pub-authors strong{
+	color: #000000;
+}
+
 .pub-places {
 	padding-top: 0.1cm;
 	font-style: italic;
