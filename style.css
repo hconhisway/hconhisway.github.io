@@ -180,6 +180,8 @@ main {
 }
 
 .pub-text{
+	display: flex;
+	align-items: flex-start;
 	font-family: "Arial";
 	padding-top: 0.5cm;
 }
@@ -219,6 +221,7 @@ main {
 }
 
 .pub-authors {
+	color: #616161;
 	/* font-family: "Arial"; */
 	/* font-size: 120%; */
 	font-size: 1.2em;
