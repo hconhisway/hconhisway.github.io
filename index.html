@@ -127,7 +127,7 @@
           <div class="pub-title"><a href="publication/Target Netgrams.pdf">Target Netgrams: An Annulus-constrained Stress Model for Radial Graph Visualization</a></div>
           <div class="pub-authors"> Mingliang Xue, <a href="http://www.yunhaiwang.net/">Yunhai Wang</a>, <strong>Chang Han</strong>, Jian Zhang, Zheng Wang, Kaiyi Zhang, Christophe Hurter, Jian Zhao, <a href="https://www.cgmi.uni-konstanz.de/en/persons/prof-dr-oliver-deussen/">Oliver Deussen</a></div>
           <div class="pub-places">IEEE TVCG, 2022</div>
-          <div class="pub-materials"> <img src="img/del_double.svg" width="15">  <a href="publication/Target Netgrams.pdf">pdf</a>   <img src="img/del_double.svg" width="15"></div>
+          <div class="pub-materials"> <img src="img/del_double.svg" width="15">  <a href="publication/Target Netgrams.pdf">pdf</a>   <img src="img/del_double.svg" width="15">  <a href="https://www.youtube.com/watch?v=ItWytv-QIiY">video</a>   <img src="img/del_double.svg" width="15"></div>
         </div>
       </div>
     </div>
@@ -155,9 +155,12 @@
         <br>
         <div class="travel-text">...</div>
         <div class="travel-text">10/13/2024: Attending VIS2024, St. Pete Beach, USA</div>
-        <div class="travel-text"><del>4/16/2023: Attending PacificVis2023, Seoul, Korea.</del></div>
-        <div class="travel-text"><del>8/10/2022: Attending GAMES2022, Changsha, China.</del></div>
-        <div class="travel-text"><del>7/22/2022: Attending ChinaVis2022, Xining, China.</del></div>
+        <button style="border: none; background-color: transparent; cursor: pointer; padding-bottom: 12px; font-style: italic;" onclick="toggleDetails()">Show More</button>
+        <div id="oldTravels" style="display: none;">
+          <div class="travel-text">4/16/2023: Attending PacificVis2023, Seoul, Korea.</div>
+          <div class="travel-text">8/10/2022: Attending GAMES2022, Changsha, China.</div>
+          <div class="travel-text">7/22/2022: Attending ChinaVis2022, Xining, China.</div>
+        </div>
     </div>
 
   </main>
@@ -182,7 +185,20 @@
             preload(
                 "img/pixel2.jpg"
 
-            ) 
+            )
+
+            function toggleDetails() {
+                var moreDetails = document.getElementById("oldTravels");
+                var button = document.querySelector("button");
+
+                if (moreDetails.style.display === "none") {
+                    moreDetails.style.display = "block";
+                    button.textContent = "Show Less";
+                } else {
+                    moreDetails.style.display = "none";
+                    button.textContent = "Show More";
+                }
+            }
 
     </script>
   <script type="text/javascript" src="d3.min.js"></script>
