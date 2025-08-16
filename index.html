@@ -32,8 +32,9 @@
   </div>
 
     <div class="nav-wrapper">
-      <div class="my-pic">
-        <img src="img/hc2.jpg" style="border-radius: 7px;" onmouseover="this.src='img/pixel.png'" onmouseout="this.src='img/hc2.jpg'" alt="A photo of CH" width="170">
+      <!-- <div class="my-pic" style="--crop-width:142px; --crop-height:170px; --offset-x:30px; --offset-y:-50px; --zoom-scale:2.8;"> -->
+      <div class="my-pic" style="--crop-width:142px; --crop-height:170px; --offset-x:5px; --offset-y:0px; --zoom-scale:2.5;">
+        <img src="img/hc2.jpg" style="border-radius: 7px;" alt="A photo of CH">
       </div>
       <nav>
           <div class="myname-text" id="myname">Chang Han &nbsp; 韩畅</div>
@@ -76,10 +77,14 @@
       <!-- <hr size="3" noshade="true"> -->
       <div class="intro-message">
         <p>
-          I am a 2nd year PhD student at the University of Utah in the School of Computing and <a href="https://www.sci.utah.edu/">SCI Institute</a>.
-          I got my B.Eng. degree from Shandong University.</p>
+          I am a 2nd year PhD student at the University of Utah in the School of Computing and <a href="https://www.sci.utah.edu/">SCI Institute</a>, mentored by <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a>.
+          I got my B.Eng. degree from Shandong University. I also interned at <a href="https://www.adobe.com/research.html">Adobe Research</a> in the summer of 2025.</p>
         <p>My current research is mainly in the field of <strong>Human Computer Interaction</strong> and <strong>Data Visualization</strong>. I care about using visualization as a communication medium to convey knowledge and insights from data. I also find joy in crafting niche visualization designs and engineering  automations that animate these designs.</p>
-        <p>Outside of research, I watch and play <a href="https://worldtabletennis.com/home">table tennis</a> and was part of the school team. I also enjoy outdoor activities (e.g., hiking & camping). When I am on vacation, I spend time playing video games apart from having fun with friends.</p>
+                <p>
+          <span id="deletedTextShort" style="cursor: pointer; color: #666;" onclick="toggleDeletedText()"><...></span>
+          <span id="deletedTextFull" style="display: none; cursor: pointer;" onclick="toggleDeletedText()"><del>Outside of research, I watch and play <a href="https://worldtabletennis.com/home">table tennis</a> and was part of the school team. I also enjoy outdoor activities (e.g., hiking & camping). When I am on vacation, I spend time playing video games apart from having fun with friends.</del></span>
+          <span style="font-size: 70%; color: #666;">(I have developed many new hobbies since I last updated this page, but will find another time to put them here.)</span>
+        </p>
         <p>Feel free to drop me an email!</p>
       </div>
     </div>
@@ -146,7 +151,7 @@
     </div>
     <div class="footer-style">
       <hr size="2" noshade="true">
-      <div class="footer">Last updated at Aug. 2024 &nbsp; &nbsp; &nbsp; | Feel free to use this website template—I'd be thrilled if you do like it! </div>
+      <div class="footer">Last updated at ??? &nbsp; &nbsp; &nbsp; | Feel free to use this website template—I'd be thrilled if you do like it! </div>
       <br>
     </div>
     </div>
@@ -182,11 +187,6 @@
 
             } 
 
-            preload(
-                "img/pixel.png"
-
-            )
-
             function toggleDetails() {
                 var moreDetails = document.getElementById("oldTravels");
                 var button = document.querySelector("button");
@@ -197,6 +197,19 @@
                 } else {
                     moreDetails.style.display = "none";
                     button.textContent = "Show More";
+                }
+            }
+
+            function toggleDeletedText() {
+                var shortText = document.getElementById("deletedTextShort");
+                var fullText = document.getElementById("deletedTextFull");
+
+                if (shortText.style.display === "none") {
+                    shortText.style.display = "inline";
+                    fullText.style.display = "none";
+                } else {
+                    shortText.style.display = "none";
+                    fullText.style.display = "inline";
                 }
             }
 
