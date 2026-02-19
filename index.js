@@ -1,3 +1,23 @@
+function initHeaderVideo() {
+	var pic = document.querySelector(".my-pic-video");
+	var video = document.getElementById("header-video");
+	if (!pic || !video) return;
+	function playVideo() {
+		video.play().catch(function () {});
+	}
+	function stopVideo() {
+		video.pause();
+		video.currentTime = 0;
+	}
+	pic.addEventListener("mouseenter", playVideo);
+	pic.addEventListener("mouseleave", stopVideo);
+}
+if (document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", initHeaderVideo);
+} else {
+	initHeaderVideo();
+}
+
 function randomLinkOver(){
     var randomLinkText = document.getElementById("random-button");
     randomLinkText.innerHTML="Feeling lucky?";
