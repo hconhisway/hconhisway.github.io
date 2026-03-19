@@ -233,7 +233,6 @@ main {
 	will-change: transform;
 	display: block;
 	vertical-align: top;
-	/* 禁止瀏覽器在懸停時顯示原生播放速度等浮層 */
 	pointer-events: none;
 }
 
