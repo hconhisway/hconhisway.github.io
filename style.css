@@ -283,9 +283,9 @@ nav a::after {
 }
 
 .repfigure-container img.fit-width{
-	width: 100%;
+	width: 85%;
 	height: auto;
-	left: 0;
+	left: 7.5%;
 	top: 50%;
 	transform: translateY(-50%);
 }
