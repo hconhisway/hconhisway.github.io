@@ -282,6 +282,18 @@ nav a::after {
 	transform: translateX(calc(140px - 100%));
 }
 
+.repfigure-container img.fit-width{
+	width: 100%;
+	height: auto;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.repfigure-container img.fit-width:hover{
+	transform: translateY(-50%);
+}
+
 .pub-text{
 	display: flex;
 	align-items: center;
