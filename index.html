@@ -1,261 +1,164 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+  <!-- Google Tag Manager (kept from the old site) -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-MNSVRPS');</script>
   <!-- End Google Tag Manager -->
-  <title>Chang Han's homepage</title>
-  <meta name="description" content="Chang Han, visualization, homepage" />
-  <meta name="google-site-verification" content="4vRORwktxqGSmVVpKECuGcKJPPSNXfDbnXIz2ix9kDo" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <link href="style.css" type="text/css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Chang Han</title>
+  <meta name="description" content="Chang Han studies and designs the shared languages of data work: numbers, natural language, gesture, visualization, code, and more.">
+  <meta name="google-site-verification" content="4vRORwktxqGSmVVpKECuGcKJPPSNXfDbnXIz2ix9kDo">
   <link rel="icon" type="image/png" href="img/icon.png">
-</head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="main.css">
 
+</head>
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNSVRPS"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <!-- <svg width="200" height="1180"></svg> -->
-  <header>
-    
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNSVRPS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header class="masthead">
+    <h1><a href="index.html">Chang Han</a></h1>
+    <nav aria-label="Main">
+      <a href="#publications">Publications</a>
+      <a href="#about">About</a>
+      <a href="cv/CV_Chang.pdf">CV</a>
+    </nav>
   </header>
 
-  <main> 
+  <!-- Wide screens: the statement, bio and avatar stay on the left while the publications scroll on the right.
+       Narrow screens: one column, in the order statement, publications, about. -->
+  <div class="layout">
+    <aside class="me">
+      <div class="statement">
+        <p>Data work runs on shared languages, from <span class="lang-gesture">gesture<svg class="loop" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path d="M9 23C5 9 38 2 68 4C95 6 99 27 80 34C56 42 15 40 6 27C2 19 11 9 31 5"/></svg></span> and <span class="lang-speech">speech</span> to <span class="lang-charts">charts</span> and <span class="lang-code">code</span>. Through them, people and machines understand one another and work together. What we can ask of data and do with it together reaches only as far as these languages do. My work explores them: how we use them, how we can improve them, and what new ones might make possible.</p>
+        <!-- each example is followed by the short name of its paper, linked to the paper -->
+        <p>For example, I build meeting notes where every “this” and “here” replays the deictic gesture behind it (&#8288;<a class="paper" href="https://arxiv.org/abs/2408.04041">Deixis</a>), presentation tools that turn sketches and spoken questions into live analysis (&#8288;<a class="paper" href="https://doi.org/10.1111/cgf.70459">SlideSAVR</a>), and representations that make AI-generated code reviewable when human attention is scarce (&#8288;<a class="paper" href="#pub-reviewme">.reviewme</a>). I also study the languages themselves: how to define community-shaped chart types whose names cover varied designs (&#8288;<a class="paper" href="https://arxiv.org/pdf/2608.02512">chart type boundaries</a>), and how a domain-specific language’s design invites the mistakes AI makes in it (&#8288;<a class="paper" href="https://arxiv.org/abs/2610.01873">DSLs for LLMs</a>).</p>
+        <p class="closing">Through my work, I hope people keep an irreplaceable place in data work and beyond, where labor can become <em>“not only a means of life but life’s prime want.”</em></p>
+      </div>
+
+      <section id="about" class="about">
+        <div class="about-row">
+          <div class="my-pic" id="my-pic" title="我知之濠上也" style="--crop-width:142px; --crop-height:130px; --offset-x:-20px; --offset-y:7px; --zoom-scale:1.45; --full-scale:1.04;">
+            <video id="header-video" src="img/swimming.mp4#t=0.001" muted loop playsinline preload="metadata"></video>
+          </div>
+          <p>I’m a PhD student in computing at the University of Utah, working at the <a class="paper" href="https://www.sci.utah.edu/">SCI Institute</a> with <a class="paper" href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a>. I received my bachelor’s degree from Shandong University, and I have interned at <a class="paper" href="https://research.adobe.com/">Adobe Research</a> and <a class="paper" href="https://www.microsoft.com/en-us/research/">Microsoft Research</a>.</p>
+        </div>
+        <div class="who">
+          <strong>韩畅 (Chang Han)</strong>
+          <a href="mailto:changhan@sci.utah.edu">changhan@sci.utah.edu</a>
+          <span>Warnock Engineering Building, 72 Central Campus Dr</span>
+          <span>Salt Lake City, UT 84112</span>
+        </div>
+      </section>
+    </aside>
+
+    <main id="publications" class="pubs">
+      <div class="section-head"><h2>Publications</h2></div>
+      <!-- each figure frame sets --x and --y (the point of the figure to centre on, in %) and --zoom
+           (1 = fill the frame with as much of the figure as fits, 2 = twice as close, 0 = the whole figure).
+           Pointing at a paper zooms out to its whole figure. -->
+      <ol class="pub-list">
+        <li class="pub" id="pub-reviewme">
+          <div class="pub-fig" style="--x:50%; --y:37%; --zoom:2"><img src="img/reviewme.png" alt=""></div>
+          <div class="pub-body">
+            <span class="pub-title">.reviewme for Agentic Coding: Tracing Human and Agent Articulation from Intent to Code</span>
+            <span class="pub-venue">under review</span>
+          </div>
+        </li>
+        <li class="pub" id="pub-chart-types">
+          <div class="pub-fig words" aria-hidden="true"><p>“The limits of my language are the limits of my world.”</p></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://arxiv.org/pdf/2608.02512">On Defining Chart Type Boundaries</a>
+            <span class="pub-authors"><b>Chang Han</b>, <a href="https://www.mcnutt.in/">Andrew McNutt</a>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></span>
+            <span class="pub-venue">IEEE VIS 2026</span>
+            <span class="pub-links"><a href="https://arxiv.org/pdf/2608.02512">paper</a><a href="https://osf.io/j2c7k">osf</a><a href="https://hconhisway.github.io/GanttDesignSpace/">live</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-slidesavr">
+          <div class="pub-fig" style="--x:41%; --y:69%; --zoom:2.5"><img src="img/slidesavr.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://doi.org/10.1111/cgf.70459">SlideSAVR: Enabling Live Analysis during Data Presentations via Multimodal Sketching and Voice Input</a>
+            <span class="pub-authors"><b>Chang Han</b>, <a href="https://mehrab-tanjim.github.io/">Md. Mehrab Tanjim</a>, <a href="https://research.adobe.com/person/shunan-guo/">Shunan Guo</a>, <a href="https://www.christinedierk.com/">Christine Dierk</a>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a>, <a href="https://jhoffswell.github.io/">Jane Hoffswell</a></span>
+            <span class="pub-venue">EuroVis 2026</span>
+            <span class="pub-links"><a href="https://doi.org/10.1111/cgf.70459">paper</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-dsl">
+          <div class="pub-fig" style="--x:17%; --y:50%; --zoom:1"><img src="img/dsl-llm.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://arxiv.org/abs/2610.01873">Where LLMs Fail with Visualization DSLs</a>
+            <span class="pub-authors"><b>Chang Han</b>, <a href="https://www.mcnutt.in/">Andrew McNutt</a>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></span>
+            <span class="pub-venue">VisXGenAI Workshop 2026</span>
+            <span class="pub-links"><a href="https://arxiv.org/abs/2610.01873">paper</a><a href="https://llmgrammar.netlify.app/">materials</a><a href="https://github.com/hconhisway/Where-LLM-Fails-Supp">code</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-fengshui">
+          <div class="pub-fig" style="--x:17%; --y:48%; --zoom:1.4"><img src="img/fengshui.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://arxiv.org/abs/2510.00344">The Feng Shui of Visualization: Design the Path to SUCCESS and GOOD FORTUNE</a>
+            <span class="pub-authors"><b>Chang Han</b>, <a href="https://www.mcnutt.in/">Andrew McNutt</a></span>
+            <span class="pub-venue">alt.VIS 2025</span>
+            <span class="pub-links"><a href="https://hconhisway.github.io/FengShuiPan/">pan</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-teaching">
+          <div class="pub-fig" style="--x:50%; --y:45%; --zoom:1"><img src="img/teaching-critical-vis.jpg" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://arxiv.org/abs/2508.02592">Teaching Critical Visualization: A Field Report</a>
+            <span class="pub-authors"><a href="https://www.mcnutt.in/">Andrew McNutt</a>, <a href="https://shiyihe-neko.github.io/">Shiyi He</a>, Sujit Kumar Kamaraj, Purbid Bambroo, Nastaran Jadidi, John Bovard, <b>Chang Han</b></span>
+            <span class="pub-venue">IEEE VIS Workshop on Visualization Education, Literacy, and Activities (EduVIS) 2025</span>
+            <span class="pub-links"><a href="https://osf.io/hxtq2/">osf</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-deixis">
+          <div class="pub-fig" style="--x:76%; --y:54%; --zoom:1.8"><img src="img/vnote2.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://arxiv.org/abs/2408.04041">A Deixis-Centered Approach for Documenting Remote Synchronous Communication around Data Visualizations</a>
+            <span class="pub-authors"><b>Chang Han</b>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></span>
+            <span class="pub-venue">IEEE VIS 2024</span>
+            <span class="pub-links"><a href="publication/Deixis.pdf">pdf</a><a href="https://osf.io/c2g39/">osf</a><a href="https://github.com/hconhisway/vitraexample">github</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-moviz">
+          <div class="pub-fig" style="--x:42%; --y:16%; --zoom:3"><img src="img/moviz.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="https://arxiv.org/abs/2408.04045">An Overview+Detail Layout for Visualizing Compound Graphs</a>
+            <span class="pub-authors"><b>Chang Han</b>, Justin Lieffers, <a href="https://ml4ai.github.io/">Clayton Morrison</a>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></span>
+            <span class="pub-venue">IEEE VIS (Short Paper) 2024</span>
+            <span class="pub-links"><a href="publication/moviz.pdf">pdf</a><a href="https://osf.io/3rcq2/">osf</a><a href="https://github.com/ml4ai/moviz-client">github</a><a href="https://ml4ai.github.io/moviz-client/">demo</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-sizepairs">
+          <div class="pub-fig" style="--x:72%; --y:35%; --zoom:1.4"><img src="img/sizepairs.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="publication/sizepairs.pdf">SizePairs: Achieving Stable and Balanced Temporal Treemaps using Hierarchical Size-based Pairing</a>
+            <span class="pub-authors"><b>Chang Han</b>, <a href="https://www.jaeminjo.com/">Jaemin Jo</a>, Anyi Li, <a href="https://bongshiny.com/">Bongshin Lee</a>, <a href="https://www.cgmi.uni-konstanz.de/en/persons/prof-dr-oliver-deussen/">Oliver Deussen</a>, <a href="http://www.yunhaiwang.net/">Yunhai Wang</a></span>
+            <span class="pub-venue">IEEE VIS 2022</span>
+            <span class="pub-links"><a href="publication/sizepairs.pdf">pdf</a><a href="https://github.com/Ideas-Laboratory/SizePairs">github</a><a href="slides/sizepairs_韩畅.pptx">slides</a><a href="https://youtu.be/psChtz1Eq2A?t=1504">talk</a></span>
+          </div>
+        </li>
+        <li class="pub" id="pub-netgrams">
+          <div class="pub-fig" style="--x:82%; --y:38%; --zoom:2.2"><img src="img/targetnetgram.png" alt=""></div>
+          <div class="pub-body">
+            <a class="pub-title" href="publication/Target%20Netgrams.pdf">Target Netgrams: An Annulus-constrained Stress Model for Radial Graph Visualization</a>
+            <span class="pub-authors">Mingliang Xue, <a href="http://www.yunhaiwang.net/">Yunhai Wang</a>, <b>Chang Han</b>, Jian Zhang, Zheng Wang, Kaiyi Zhang, Christophe Hurter, Jian Zhao, <a href="https://www.cgmi.uni-konstanz.de/en/persons/prof-dr-oliver-deussen/">Oliver Deussen</a></span>
+            <span class="pub-venue">IEEE TVCG 2022</span>
+            <span class="pub-links"><a href="publication/Target%20Netgrams.pdf">pdf</a><a href="https://www.youtube.com/watch?v=ItWytv-QIiY">video</a></span>
+          </div>
+        </li>
+      </ol>
+    </main>
   </div>
 
-    <div class="nav-wrapper">
-      <!-- <div class="my-pic" style="--crop-width:142px; --crop-height:170px; --offset-x:30px; --offset-y:-50px; --zoom-scale:2.8;"> -->
-      <div class="my-pic my-pic-video" style="--crop-width:142px; --crop-height:130px; --offset-x:-20px; --offset-y:7px; --zoom-scale:1.45;" title="我知之濠上也">
-        <video id="header-video" src="img/swimming.mp4" muted loop playsinline preload="metadata" style="border-radius: 7px;"></video>
-      </div>
-      <nav>
-          <div class="myname-text" id="myname">韩畅 (Chang Han)</div>
-        <a href="index.html">
-          <div class="nav-text" id="home-button">Home</div>
-        </a>
-        <a href="cv/CV_Chang.pdf">
-          <div class="nav-text" id="about-button">CV</div>
-        </a>
-        <a href="shigong.html">
-          <div class="nav-text" id="R&A-button">Projects</div>
-        </a>
-        <a href="shigong.html">
-          <div class="nav-text" id="blog-button">Blog (in Chinese)</div>
-        </a>
-        <a href="javascript:void(0);">
-          <div class="nav-text" id="random-button" onmouseover = "randomLinkOver()" onmouseout="randomLinkRestore()" onclick="randomTelePort()">Random Teleport</div>  
-        </a>
-        <div class="contact">
-          <!-- <br> -->
-          <p>
-            <b class = "contactB" style="margin-top: 0cm; padding: top 0cm;">Contact</b>
-            <br>
-            <a class = "small-a" href="mailto:changhan@sci.utah.edu">changhan@sci.utah.edu</a>
-          </p>
-          <p class="small-b">Warnock Engineering Building <br>72 Central Campus Dr <br>Salt Lake City <br> UT 84112 </p>
-        </div>
-      </nav>
-      
-      
-      <div class="sdulogo">
-       <img src="img/SCI-logo-transparent-black.png" align="left" alt="SDUlogo" width="150" style="padding-top: 0.2cm; padding-left: 0.2cm;" >
-       <img src="img/Ulogo_CMYK.png" align="left" alt="SDUlogo" width="150" style="padding-top: 0.2cm; padding-left: 0.2cm;" >
-      </div>
-    </div>
+  <script src="main.js"></script>
 
-    <div class="middle">
-    <div class="intro">
-      <h2> Hello World, it's Chang here! </h2>
-      <!-- <hr size="3" noshade="true"> -->
-      <div class="intro-message">
-        <p>
-          I am a 3rd year PhD student at the University of Utah in the School of Computing and <a href="https://www.sci.utah.edu/">SCI Institute</a>, mentored by <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a>.
-          I got my B.Eng. degree from Shandong University. I also interned at <a href="https://www.adobe.com/research.html">Adobe Research</a> in the summer of 2025.</p>
-        <p>My current research is mainly in the field of <strong>Human Computer Interaction</strong> and <strong>Data Visualization</strong>. I care about using visualization as a communication medium to convey knowledge and insights from data. I also find joy in crafting visualization designs and engineering  automations that animate these designs.</p>
-                <p>
-          <span id="deletedTextShort" style="cursor: pointer; color: #666;" onclick="toggleDeletedText()"><...></span>
-          <span id="deletedTextFull" style="display: none; cursor: pointer;" onclick="toggleDeletedText()"><del>Outside of research, I watch and play <a href="https://worldtabletennis.com/home">table tennis</a> and was part of the school team. I also enjoy outdoor activities (e.g., hiking & camping). When I am on vacation, I spend time playing video games apart from having fun with friends.</del></span>
-          <span style="font-size: 70%; color: #666;">(I have developed many new hobbies since I last updated this page, but will find another time to put them here.)</span>
-        </p>
-        <p>Feel free to drop me an email!</p>
-      </div>
-    </div>
-
-    <div class="publication">
-      <br>
-      <!-- <hr size="3" noshade="true"> -->
-      <img src="img/delimiter.png" alt="delimiter" width="90" style="padding-top: 0.2cm; margin-left: 330px;">
-      <br>
-      <h2>Publications</h2>
-      
-      <div class="pub-text">
-        <div class="repfigure-container"><img class="fit-width" src="img/EDS.png"></div>
-        <div>
-          <div class="pub-title"><a>On Defining Chart Type Boundaries</a></div>
-          <div class="pub-authors"> <strong>Chang Han</strong>, <a href="https://www.mcnutt.in/">Andrew McNutt</a>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></div>
-          <div class="pub-places">IEEE VIS 2026</div>
-          <div class="pub-materials">  <img src="img/del_double.svg" width="15">  Coming Soon  <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/slidesavr.png"></div>
-        <div>
-          <div class="pub-title"><a href="https://doi.org/10.1111/cgf.70459">SlideSAVR: Enabling Live Analysis during Data Presentations via Multimodal Sketching and Voice Input</a></div>
-          <div class="pub-authors"> <strong>Chang Han</strong>, Md. Mehrab Tanjim, Shunan Guo, Christine Dierk, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a>, Jane Hoffswell</div>
-          <div class="pub-places">EuroVis 2026</div>
-          <div class="pub-materials">  <img src="img/del_double.svg" width="15">  <a href="https://doi.org/10.1111/cgf.70459">paper</a>  <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/fengshui.png"></div>
-        <div>
-          <div class="pub-title"><a href="https://arxiv.org/abs/2510.00344">The Feng Shui of Visualization: Design the Path to SUCCESS and GOOD FORTUNE</a></div>
-          <div class="pub-authors"> <strong>Chang Han</strong>, <a href="https://www.mcnutt.in/">Andrew McNutt</a></div>
-          <div class="pub-places">alt.VIS 2025</div>
-          <div class="pub-materials">  <img src="img/del_double.svg" width="15">  <a href="https://hconhisway.github.io/FengShuiPan/">pan</a>  <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/teaching-critical-vis.jpg"></div>
-        <div>
-          <div class="pub-title"><a href="https://arxiv.org/abs/2508.02592">Teaching Critical Visualization: A Field Report</a></div>
-          <div class="pub-authors"> <a href="https://www.mcnutt.in/">Andrew McNutt</a>, <a href="https://shiyihe-neko.github.io/">Shiyi He</a>, Sujit Kumar Kamaraj, Purbid Bambroo, Nastaran Jadidi, John Bovard, <strong>Chang Han</strong></div>
-          <div class="pub-places">IEEE VIS Workshop on Visualization Education, Literacy, and Activities (EduVIS) 2025</div>
-          <div class="pub-materials">  <img src="img/del_double.svg" width="15">  <a href="https://osf.io/hxtq2/">osf</a>  <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/vnote2.png"></div>
-        <div>
-          <div class="pub-title"><a href="https://arxiv.org/abs/2408.04041">A Deixis-Centered Approach for Documenting Remote Synchronous Communication around Data Visualizations</a></div>
-          <div class="pub-authors"> <strong>Chang Han</strong>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></div>
-          <div class="pub-places">IEEE VIS 2024</div>
-          <div class="pub-materials">  <img src="img/del_double.svg" width="15">  <a href="publication/Deixis.pdf">pdf</a>  <img src="img/del_double.svg" width="15">  <a href="https://osf.io/c2g39/">osf</a>  <img src="img/del_double.svg" width="15">  <a href="https://github.com/hconhisway/vitraexample">github</a>  <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/moviz.png"></div>
-        <div>
-          <div class="pub-title"><a href="https://arxiv.org/abs/2408.04045">An Overview+Detail Layout for Visualizing Compound Graphs</a></div>
-          <div class="pub-authors"> <strong>Chang Han</strong>, Justin Lieffers, <a href="https://ml4ai.github.io/">Clayton Morrison</a>, <a href="https://kisaacs.github.io/index.html">Katherine E. Isaacs</a></div>
-          <div class="pub-places">IEEE VIS (Short Paper) 2024</div>
-          <div class="pub-materials"> <img src="img/del_double.svg" width="15">  <a href="publication/moviz.pdf">pdf</a> <img src="img/del_double.svg" width="15"> <a href="https://osf.io/3rcq2/">osf</a> <img src="img/del_double.svg" width="15"> <a href="https://github.com/ml4ai/moviz-client">github</a> <img src="img/del_double.svg" width="15"> <a href="https://ml4ai.github.io/moviz-client/">demo</a>  <img src="img/del_double.svg" width="15"> </div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/sizepairs.png"></div>
-        <div>
-          <div class="pub-title"><a href="publication/sizepairs.pdf">SizePairs: Achieving Stable and Balanced Temporal Treemaps using Hierarchical Size-based Pairing</a></div>
-          <div class="pub-authors"> <strong>Chang Han</strong>, <a href="https://www.jaeminjo.com/">Jaemin Jo</a>, Anyi Li, <a href="https://bongshiny.com/">Bongsine Lee</a>, <a href="https://www.cgmi.uni-konstanz.de/en/persons/prof-dr-oliver-deussen/">Oliver Deussen</a>, <a href="http://www.yunhaiwang.net/">Yunhai Wang</a> </div>
-          <div class="pub-places">IEEE VIS 2022</div>
-          <div class="pub-materials"> <img src="img/del_double.svg" width="15">  <a href="publication/sizepairs.pdf">pdf</a> <img src="img/del_double.svg" width="15">  <a href="https://github.com/Ideas-Laboratory/SizePairs">github</a> <img src="img/del_double.svg" width="15">  <a href="slides/sizepairs_韩畅.pptx">slides</a> <img src="img/del_double.svg" width="15">  <a href="https://youtu.be/psChtz1Eq2A?t=1504">talk</a>  <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-
-      <div class="pub-text">
-        <div class="repfigure-container"><img src="img/targetnetgram.png"></div>
-        <div>
-          <div class="pub-title"><a href="publication/Target Netgrams.pdf">Target Netgrams: An Annulus-constrained Stress Model for Radial Graph Visualization</a></div>
-          <div class="pub-authors"> Mingliang Xue, <a href="http://www.yunhaiwang.net/">Yunhai Wang</a>, <strong>Chang Han</strong>, Jian Zhang, Zheng Wang, Kaiyi Zhang, Christophe Hurter, Jian Zhao, <a href="https://www.cgmi.uni-konstanz.de/en/persons/prof-dr-oliver-deussen/">Oliver Deussen</a></div>
-          <div class="pub-places">IEEE TVCG, 2022</div>
-          <div class="pub-materials"> <img src="img/del_double.svg" width="15">  <a href="publication/Target Netgrams.pdf">pdf</a>   <img src="img/del_double.svg" width="15">  <a href="https://www.youtube.com/watch?v=ItWytv-QIiY">video</a>   <img src="img/del_double.svg" width="15"></div>
-        </div>
-      </div>
-    </div>
-    
-    <br>
-    <img src="img/delimiter.png" alt="delimiter" width="90" style="padding-top: 0.2cm; margin-left: 330px;">
-    <div class="Travel">
-      <h2>Photos</h2>
-      <br>
-      <div>See more photos <a  style="font-size: 120%; font-family: 'Arial';" href="photos.html">here</a>.<br></div>
-      <div class="travel-text">...</div>
-      <img src="img/tomato-S1.jpg" alt="tomato" width="400" style="padding-top: 0.7cm;">
-      <img src="img/tomato-S2.jpg" alt="tomato" width="400" style="padding-top: 0.7cm;">
-      <div class="travel-text">Tomato greenhouse — temporary Utopia for tomatoes and anyone who enjoys the warmth. Winter, 2022</div>     
-      <div class="travel-text">...</div>
-    </div>
-    <div class="footer-style">
-      <hr size="2" noshade="true">
-      <div class="footer">Last updated at ??? &nbsp; &nbsp; &nbsp; | Feel free to use this website template—I'd be thrilled if you do like it! </div>
-      <br>
-    </div>
-    </div>
-    <div class="NewsTravel">
-      <b style="margin-top: 0cm; padding: top 0cm; font-size: large; font-family: 'Arial';">Travel</b>
-        <br>
-        <div class="travel-text">...</div>
-        <div class="travel-text">2025 Summer: Spent 3 months in San Jose, CA, US, working at Adobe Research.</div>
-        <button style="border: none; background-color: transparent; cursor: pointer; padding-bottom: 12px; font-style: italic;" onclick="toggleDetails()">Show More</button>
-        <div id="oldTravels" style="display: none;">
-          <div class="travel-text"><del>10/13/2024: Attending VIS2024, St. Pete Beach, US</del></div>
-          <div class="travel-text">4/16/2023: Attending PacificVis2023, Seoul, Korea.</div>
-          <div class="travel-text">8/10/2022: Attending GAMES2022, Changsha, China.</div>
-          <div class="travel-text">7/22/2022: Attending ChinaVis2022, Xining, China.</div>
-        </div>
-    </div>
-
-  </main>
-  <div class="hidden"> 
-
-    <script type="text/javascript"> 
-
-            var images = new Array() 
-
-            function preload() { 
-
-                for (i = 0; i < preload.arguments.length; i++) { 
-
-                    images[i] = new Image() 
-
-                    images[i].src = preload.arguments[i] 
-
-                } 
-
-            } 
-
-            function toggleDetails() {
-                var moreDetails = document.getElementById("oldTravels");
-                var button = document.querySelector("button");
-
-                if (moreDetails.style.display === "none") {
-                    moreDetails.style.display = "block";
-                    button.textContent = "Show Less";
-                } else {
-                    moreDetails.style.display = "none";
-                    button.textContent = "Show More";
-                }
-            }
-
-            function toggleDeletedText() {
-                var shortText = document.getElementById("deletedTextShort");
-                var fullText = document.getElementById("deletedTextFull");
-
-                if (shortText.style.display === "none") {
-                    shortText.style.display = "inline";
-                    fullText.style.display = "none";
-                } else {
-                    shortText.style.display = "none";
-                    fullText.style.display = "inline";
-                }
-            }
-
-    </script>
-  <script type="text/javascript" src="d3.min.js"></script>
-  <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
