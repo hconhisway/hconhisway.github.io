@@ -138,12 +138,12 @@
    way it is going (seen from below, as you see a swallow overhead), brakes with a few hard beats and lands,
    wings folded: on a figure's top-left corner, or on the last letter of the words. It stays while the pointer
    stays (for a figure, anywhere on that paper), and a while after the pointer has gone to nothing else it
-   flies home. Rest the pointer on the bird itself and it flies over to hover above "About", and comes back.
+   flies home. Rest the pointer on the bird itself and it gives chase: it flies after the pointer, circles it
+   twice and goes home (see chase() for how it keeps that looking like a bird when the pointer is flung about).
    It is drawn afresh every frame while it moves. */
 (function () {
   var bird = document.querySelector('.bird');
-  var about = document.querySelector('.masthead nav a[href="#about"]');
-  if (!bird || !about || !window.requestAnimationFrame || !document.elementFromPoint) return;
+  if (!bird || !window.requestAnimationFrame || !document.elementFromPoint) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var rig = bird.querySelector('.bird-rig');
   var wl = bird.querySelector('.wing-l'), wr = bird.querySelector('.wing-r');
@@ -165,6 +165,7 @@
   var mix = function (a, b, t) { return a + (b - a) * t; };
   var vary = function (v, lo, hi) { return v * (lo + (hi - lo) * Math.random()); };   // a bird is never quite the same twice
   var wrap = function (a) { return ((a + 180) % 360 + 360) % 360 - 180; };     // an angle, into -180..180
+  var wrapR = function (a) { return a - 2 * Math.PI * Math.round(a / (2 * Math.PI)); };   // the same in radians
   function bez(p, t) {
     var u = 1 - t;
     return [u * u * u * p[0][0] + 3 * u * u * t * p[1][0] + 3 * u * t * t * p[2][0] + t * t * t * p[3][0],
@@ -177,12 +178,13 @@
   }
   var FOLD = [-72, 0.52];                        // wings folded down along the body: degrees, foreshortening
 
-  // a pose: offset from home (px), turn (deg), size, wingbeat (deg), glide, fold (0 open, 1 folded), beats a second
-  function pose(x, y, fold) { return { x: x || 0, y: y || 0, rot: 0, scale: 1, amp: 0, glide: 0, fold: fold || 0, hz: 6 }; }
-  function copy(p) { return { x: p.x, y: p.y, rot: p.rot, scale: p.scale, amp: p.amp, glide: p.glide, fold: p.fold, hz: p.hz }; }
+  // a pose: offset from home (px), turn (deg), size, wingbeat (deg), glide, fold (0 open, 1 folded), beats a second,
+  // bank (+ leaning into a clockwise turn)
+  function pose(x, y, fold) { return { x: x || 0, y: y || 0, rot: 0, scale: 1, amp: 0, glide: 0, fold: fold || 0, hz: 6, bank: 0 }; }
+  function copy(p) { return { x: p.x, y: p.y, rot: p.rot, scale: p.scale, amp: p.amp, glide: p.glide, fold: p.fold, hz: p.hz, bank: p.bank || 0 }; }
   var now = pose();
   var phase = 0, job = null, raf = 0, last = 0;
-  var state = 'home';                            // home, perched, flying or hovering
+  var state = 'home';                            // home, perched or flying
   var seat = null;                               // what it sits on or is on its way to (null: home)
   var spot = [0, 0];                             // where it sits, when perched
   var landed = -1e9;                             // when it last landed
@@ -194,9 +196,10 @@
     a = mix(a, FOLD[0], p.fold);
     f = mix(f, FOLD[1], p.fold);
     var lift = p.amp > 4 ? -1.7 * Math.sin(phase - 0.6) * p.amp / 32 : 0;     // each downstroke lifts the body
+    var bank = (p.bank || 0) * (1 - p.fold);                                   // in a turn the inner wing tips away, shorter
     rig.style.transform = 'translate(' + p.x.toFixed(2) + 'px,' + (p.y + lift).toFixed(2) + 'px) rotate(' + p.rot.toFixed(2) + 'deg) scale(' + p.scale.toFixed(3) + ')';
-    wl.style.transform = 'rotate(' + a.toFixed(2) + 'deg) scaleX(' + f.toFixed(3) + ')';
-    wr.style.transform = 'rotate(' + (-a).toFixed(2) + 'deg) scaleX(' + f.toFixed(3) + ')';
+    wl.style.transform = 'rotate(' + a.toFixed(2) + 'deg) scaleX(' + (f * (1 + bank)).toFixed(3) + ')';
+    wr.style.transform = 'rotate(' + (-a).toFixed(2) + 'deg) scaleX(' + (f * (1 - bank)).toFixed(3) + ')';
   }
   function run() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
   function still() {                             // at rest where it is; at home the painting itself shows
@@ -244,30 +247,24 @@
     return [x + window.pageXOffset - h0[0], top + window.pageYOffset - 0.08 * h - h0[1]];
   }
 
-  // Fly from wherever it is to `to` (an offset from home). land: 'home', 'perch' or 'hover'.
-  // opts.lift: ms of beating in place before setting off (from sitting); opts.path(p0, p3): the curve's middle
-  // control points; opts.stay: ms to hover before opts.then().
-  function fly(to, land, opts) {
-    opts = opts || {};
+  // Fly from wherever it is to `to` (an offset from home), and land there: land is 'home' or 'perch'.
+  function fly(to, land) {
     var sitting = state === 'home' || state === 'perched';
     var stirring = !!job && job.kind === 'stir';                               // its wings are going already
-    var h = bird.offsetHeight, up = -0.14 * h;
+    var h = bird.offsetHeight, up = -0.14 * h, top = -home()[1] + 0.5 * h;     // not above the top of the page
     var p0 = [now.x, now.y + (sitting ? up : 0)];
-    var p3 = land === 'hover' ? to : [to[0], to[1] + 0.8 * up];               // it lands from just above
+    var p3 = [to[0], to[1] + 0.8 * up];                                        // it lands from just above
     var dx = p3[0] - p0[0], dy = p3[1] - p0[1], L = Math.hypot(dx, dy) || 1;
     var far = smooth(60, 360, L);                                              // 0 for a hop, 1 for a flight
-    var mid = opts.path ? opts.path(p0, p3) : (function () {                   // an arc over the way it goes
-      var nx = dy / L, ny = -dx / L;
-      if (ny > 0) { nx = -nx; ny = -ny; }
-      var b = Math.min(0.2 * L, 80), top = -home()[1] + 0.5 * h;               // not above the top of the page
-      return [[p0[0] + 0.3 * dx + 0.6 * b * nx, Math.max(top, p0[1] + 0.3 * dy + 0.6 * b * ny)],
-              [p0[0] + 0.72 * dx + b * nx, Math.max(top, p0[1] + 0.72 * dy + b * ny)]];
-    })();
+    var dur = vary(Math.max(mix(420, 560, far), Math.min(1400, 380 + 0.55 * L)), 0.93, 1.08);
+    var nx = dy / L, ny = -dx / L, b = Math.min(0.2 * L, 80);                  // an arc over the way it goes
+    if (ny > 0) { nx = -nx; ny = -ny; }
+    var mid = [[p0[0] + 0.3 * dx + 0.6 * b * nx, Math.max(top, p0[1] + 0.3 * dy + 0.6 * b * ny)],
+               [p0[0] + 0.72 * dx + b * nx, Math.max(top, p0[1] + 0.72 * dy + b * ny)]];
     job = { kind: 'fly', start: performance.now(),
-            lift: sitting ? vary(opts.lift || mix(240, 360, far), 0.9, 1.15) * (stirring ? 0.6 : 1) : 0,
-            dur: vary(Math.max(mix(420, 560, far), Math.min(1400, 380 + 0.55 * L)), 0.93, 1.08), down: mix(340, 440, far),
-            far: far, turn: smooth(40, 260, L), long: L > 260,
-            p: [p0, mid[0], mid[1], p3], to: to, land: land, opts: opts, from: copy(now) };
+            lift: sitting ? vary(mix(240, 360, far), 0.9, 1.15) * (stirring ? 0.6 : 1) : 0,
+            dur: dur, down: mix(340, 440, far), far: far, turn: smooth(40, 260, L), long: L > 260,
+            p: [p0, mid[0], mid[1], p3], to: to, land: land, from: copy(now) };
     state = 'flying';
     bird.classList.add('flying');
     run();
@@ -301,6 +298,15 @@
       var e = j.env, w = (t - j.start) / 1000;
       p = { x: f.x, y: f.y - 2.4 * e, rot: (6 * j.tilt + 1.5 * Math.sin(w * 9)) * e, scale: 1,
             amp: 24 * e, glide: 0, fold: f.fold * (1 - 0.65 * e), hz: 7.4 };
+    } else if (j.kind === 'chase') {
+      p = chasing(j, t, dt);
+      if (j.done) {                              // home again
+        job = null; raf = 0; landed = t; state = 'home';
+        if (hot === BIRD) spent = BIRD;
+        still();
+        think();
+        return;
+      }
     } else {
       var ms = t - j.start;
       if (ms < j.lift) {                                                        // beat its wings where it is, rising a little
@@ -313,19 +319,14 @@
         var hd = r0 + wrap(wrap(heading(j.p, Math.min(0.999, Math.max(0.001, k)))) * j.turn - r0);   // a hop hardly turns it
         var rot = mix(r0, hd, smooth(0, 0.2, tt));
         var g = j.long ? smooth(0.3, 0.4, tt) * (1 - smooth(0.62, 0.72, tt)) : 0;    // a short glide on longer flights
-        p = { x: at[0], y: at[1], rot: mix(rot, rot - wrap(rot), smooth(0.8, 1, tt)), scale: 1 - 0.06 * j.far * Math.sin(Math.PI * tt),
-              amp: mix(j.lift ? 30 : Math.max(f.amp, 20), 30, smooth(0, 0.15, tt)) * (1 - g), glide: g,
-              fold: (j.lift ? 0 : f.fold) * (1 - smooth(0, 0.25, tt)), hz: 5.4 + 1.4 * smooth(0.65, 0.85, tt) };
-      } else if (j.land === 'hover') {                                          // hover, wings going hard
-        var th = (ms - j.lift - j.dur) / 1000;
-        p = { x: j.to[0] + 2.2 * Math.sin(th * 5.5), y: j.to[1] + 1.2 * Math.sin(th * 11), rot: 4 * Math.sin(th * 6.5), scale: 1,
-              amp: 34, glide: 0, fold: 0, hz: 7.6 };
-        state = 'hovering';
-        if (j.opts.stay && ms > j.lift + j.dur + j.opts.stay) {
-          job = null; now = p; j.opts.then();
-          raf = requestAnimationFrame(frame);
-          return;
-        }
+        var in0 = j.lift ? 1 : smooth(0, 0.18, tt);                             // from what it was doing before
+        g = mix(j.lift ? 0 : f.glide, g, in0);
+        var beat = j.lift ? 30 : Math.max(f.amp / Math.max(0.05, 1 - f.glide), 20);
+        p = { x: at[0], y: at[1], rot: mix(rot, rot - wrap(rot), smooth(0.8, 1, tt)),
+              scale: mix(j.lift ? 1 : f.scale, 1, smooth(0, 0.25, tt)) - 0.06 * j.far * Math.sin(Math.PI * tt),
+              amp: mix(beat, 30, smooth(0, 0.15, tt)) * (1 - g), glide: g,
+              fold: (j.lift ? 0 : f.fold) * (1 - smooth(0, 0.25, tt)), hz: 5.4 + 1.4 * smooth(0.65, 0.85, tt),
+              bank: (j.lift ? 0 : f.bank) * (1 - smooth(0, 0.2, tt)) };
       } else if (ms < j.lift + j.dur + j.down) {                                // land: slowing beats, settle, fold
         var tg = (ms - j.lift - j.dur) / j.down;
         p = { x: j.to[0], y: mix(j.p[3][1], j.to[1], outQuad(tg)), rot: 0, scale: 1, amp: 30 * Math.pow(1 - tg, 1.4), glide: 0,
@@ -391,7 +392,7 @@
   function think() {
     clearTimeout(timer);
     timer = 0;
-    if (!visible()) return;
+    if (!visible() || (job && job.kind === 'chase')) return;      // at play, nothing else catches its eye
     var t = performance.now(), h = hot, at;
     if (h === BIRD && !atHome()) h = null;       // its place, while it is away: nothing to it
     if (h && h !== seat && h !== spent) {
@@ -399,7 +400,7 @@
       if (state === 'home' || state === 'perched') at = Math.max(at, landed + HOP);
       if (t >= at) {
         spent = h;
-        if (h === BIRD) tour(); else go(h);
+        if (h === BIRD) chase(); else go(h);
         return;
       }
     } else if (!h && seat && state === 'perched') {
@@ -413,20 +414,100 @@
     if (!t) fly([0, 0], 'home');
     else fly(isFig(t) ? onFigure(t) : onWord(t), 'perch');
   }
-  // rested on in its place: over to hover above "About", and back
-  function tour() {
+  // ---------- at play: rested on in its place, it chases the pointer ----------
+  // It flies after the pointer, circles it twice and flies home. It steers rather than follows: it has a
+  // velocity, a top speed and a limit on how hard it can speed up, brake or turn, so it moves in arcs, wider
+  // the faster it goes, and banks into them. It aims at where the pointer has been over the last moment, not
+  // where it is this instant, and that aim can only move so fast: a shaken pointer hardly moves it, a flung one
+  // pulls it along and it swings round after it. To circle, it steers for a point a little way round the circle
+  // ahead of itself. The circle is seen at a slant, wider than tall (flatter still near the top of the page, so
+  // the pointer stays in the middle of it), and the bird is a little bigger on its near side. It flaps while it
+  // has work to do and glides now and then while it is only keeping up. Home is flown the same way: it turns
+  // for home in an arc, comes in as fast as it can still brake in time, and settles. If the pointer leaves the
+  // window, or the bird cannot get its two circles in, it gives up and goes home.
+  var TOP = 1100, PULL = 5200;                   // its top speed (px/s), and its most acceleration (px/s²)
+  function chase() {
     seat = null;
-    var ab = about.getBoundingClientRect(), h0 = home(), h = bird.offsetHeight;
-    var to = [ab.left + ab.width / 2 + window.pageXOffset - h0[0], ab.top + window.pageYOffset - 6 - 0.63 * h - h0[1]];
-    fly(to, 'hover', {
-      lift: 700, stay: 1150,
-      // swoop down in the open space, then come in level over the tabs (never across their words)
-      path: function (p0, p3) { var dx = p3[0] - p0[0]; return [[p0[0] + 0.3 * dx, 0.48 * h], [p0[0] + 0.62 * dx, p3[1] - 0.05 * h]]; },
-      then: function () {
-        // leave level, swoop down through the open space, rise home from below
-        fly([0, 0], 'home', { path: function (p0, p3) { var dx = p3[0] - p0[0]; return [[p0[0] + 0.3 * dx, p0[1] - 0.08 * h], [p0[0] + 0.7 * dx, 0.62 * h]]; } });
+    var h0 = home(), w = bird.offsetWidth;
+    job = { kind: 'chase', phase: 'chase', start: performance.now(), h0: h0, from: copy(now),
+            rx: 1.2 * w, ry: 0.86 * w,                                         // the circle it steers by (it flies a little inside it)
+            b: [now.x, now.y], v: [0, -90],                                    // where it is, and its velocity: springing up
+            aim: [px + window.pageXOffset - h0[0], py + window.pageYOffset - h0[1]], av: [0, 0],   // its aim, and the aim's velocity
+            way: Math.random() < 0.5 ? 1 : -1,                                 // which way round
+            round: 0, a: null, rot: now.rot, glide: 0, bank: 0, scale: 1, effort: 1, amp: now.amp };
+    state = 'flying';
+    bird.classList.add('flying');
+    run();
+  }
+  function chasing(j, t, dt) {                   // a frame of the chase: its pose; j.done once it is home
+    var ms = t - j.start, ease = function (tau) { return 1 - Math.exp(-dt / tau); };
+    var w = bird.offsetWidth, h = bird.offsetHeight, wx, wy, near = 0, dy = 0, n = 9;
+    if (j.phase === 'chase' && (!has || ms > 7000 || j.round >= 2)) {
+      j.phase = 'home'; j.homeAt = t;
+      spent = hot;                               // what the pointer is on now does not draw it straight back out
+    }
+    if (j.phase === 'land') {                    // settling at home: slowing beats, upright
+      var tg = Math.min(1, (t - j.landAt) / 380);
+      if (tg >= 1) { j.done = true; return pose(); }
+      return { x: mix(j.lb[0], 0, smooth(0, 0.6, tg)), y: mix(j.lb[1], 0, outQuad(tg)), rot: mix(j.lr, j.lr - wrap(j.lr), smooth(0, 0.7, tg)),
+               scale: mix(j.ls, 1, tg), amp: j.amp * Math.pow(1 - tg, 1.4), glide: 0, fold: 0, hz: 6.4, bank: j.bank * (1 - tg) };
+    }
+    if (j.phase === 'chase') {
+      // the aim: the pointer, smoothed, and never moving faster than 1500 px/s
+      var mx = (px + window.pageXOffset - j.h0[0] - j.aim[0]) * ease(0.16), my = (py + window.pageYOffset - j.h0[1] - j.aim[1]) * ease(0.16);
+      var ml = Math.hypot(mx, my), cap = 1500 * dt;
+      if (ml > cap) { mx *= cap / ml; my *= cap / ml; }
+      j.aim[0] += mx; j.aim[1] += my;
+      if (dt) { j.av[0] += (mx / dt - j.av[0]) * ease(0.1); j.av[1] += (my / dt - j.av[1]) * ease(0.1); }
+      // the circle round the aim, flattened or narrowed where the page runs out
+      var pw = document.documentElement.clientWidth, ax = j.aim[0] + j.h0[0], ay = j.aim[1] + j.h0[1];   // the aim on the page
+      var rx = Math.max(0.5 * j.rx, Math.min(j.rx, ax - 0.45 * w, pw - ax - 0.45 * w));
+      var ry = Math.max(0.45 * j.ry, Math.min(j.ry, ay - 0.45 * h));
+      var cx = Math.max(-j.h0[0] + rx + 0.45 * w, Math.min(pw - j.h0[0] - rx - 0.45 * w, j.aim[0]));
+      var cy = Math.max(-j.h0[1] + ry + 0.45 * h, j.aim[1]);
+      // it steers for a point a little way round the circle ahead of it, keeping pace with the circle
+      var dx = j.b[0] - cx, a = Math.atan2((j.b[1] - cy) / ry, dx / rx);
+      dy = j.b[1] - cy; n = Math.hypot(dx / rx, dy / ry);
+      var gx = cx + rx * Math.cos(a + 0.8 * j.way), gy = cy + ry * Math.sin(a + 0.8 * j.way);
+      wx = j.av[0] + (gx - j.b[0]) * 7.5; wy = j.av[1] + (gy - j.b[1]) * 7.5;
+      // the way round, counted only while it is on the circle
+      if (j.a !== null && n > 0.5 && n < 1.6) j.round += wrapR(a - j.a) * j.way / (2 * Math.PI);
+      j.a = a;
+      dy /= ry;
+    } else {
+      // home: for a point just above it, as fast as it can go and still brake in time
+      var ex = -j.b[0], ey = -0.11 * h - j.b[1], ed = Math.hypot(ex, ey) || 1e-6, sp0 = Math.hypot(j.v[0], j.v[1]);
+      if ((ed < 5 && sp0 < 160) || t - j.homeAt > 5000) {
+        j.phase = 'land'; j.landAt = t; j.lb = [j.b[0], j.b[1]]; j.lr = j.rot; j.ls = j.scale;
+        return chasing(j, t, 0);
       }
-    });
+      var vd = Math.min(TOP, Math.sqrt(PULL * ed));
+      wx = ex / ed * vd; wy = ey / ed * vd;
+      near = smooth(50, 8, ed);                  // close in: it turns upright to land
+    }
+    var wv = Math.hypot(wx, wy);
+    if (wv > TOP) { wx *= TOP / wv; wy *= TOP / wv; }
+    // it changes its velocity only so fast: arcs, never jerks
+    var dvx = wx - j.v[0], dvy = wy - j.v[1], dvl = Math.hypot(dvx, dvy), most = PULL * dt;
+    j.effort += (Math.min(1, dvl / 800) - j.effort) * ease(0.15);
+    if (dvl > most) { dvx *= most / dvl; dvy *= most / dvl; }
+    j.v[0] += dvx; j.v[1] += dvy;
+    j.b[0] += j.v[0] * dt; j.b[1] += j.v[1] * dt;
+    var sp = Math.hypot(j.v[0], j.v[1]);
+    // its body points the way it flies; when it is nearly still that way means little, so it turns lazily
+    var want = mix(wrap(Math.atan2(j.v[0], -j.v[1]) * 180 / Math.PI - j.rot), wrap(-j.rot), near);
+    j.rot += Math.max(-2000 * dt, Math.min(2000 * dt, want * ease(mix(0.25, 0.008, smooth(30, 150, sp)))));
+    // it banks into the turn
+    var side = sp > 1 && dt ? (j.v[0] * dvy - j.v[1] * dvx) / (sp * dt) : 0;    // its sideways acceleration
+    j.bank += (0.22 * Math.max(-1, Math.min(1, side / 4000)) - j.bank) * ease(0.08);
+    // flaps while it works; glides now and then while it is only keeping up
+    var rhythm = smooth(0.35, 0.95, Math.sin(ms / 1000 * 2 * Math.PI * 0.85));
+    j.glide += (rhythm * clamp(1 - j.effort / 0.4) * (1 - near) - j.glide) * ease(0.08);
+    // a little bigger on the near side of the circle
+    j.scale += (1 + 0.065 * Math.max(-1, Math.min(1, dy)) * clamp(1.6 - n) - j.scale) * ease(0.1);
+    j.amp = mix(j.from.amp, (30 + 5 * j.effort) * (1 - j.glide), smooth(0, 120, ms));
+    return { x: j.b[0], y: j.b[1], rot: j.rot, scale: j.scale, amp: j.amp, glide: j.glide,
+             fold: j.from.fold * (1 - smooth(0, 180, ms)), hz: 5.8 + 2 * j.effort, bank: j.bank };
   }
 
   document.addEventListener('pointermove', function (e) {
