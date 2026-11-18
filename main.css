@@ -51,6 +51,30 @@ img { max-width: 100%; }
 }
 .masthead h1 a:hover { text-decoration: none; }
 .masthead nav { display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+/* a swallow in ink, in the gap between the name and the tabs, with open sky ahead of it.
+   It flies about the page from here (main.js): onto the figures, the name, the tabs and the heading
+   it is pointed to, and over to "About". Its negative margins keep it from making the masthead any taller. */
+.bird {
+  position: relative;
+  display: block;
+  align-self: center;
+  width: clamp(54px, 4.6vw, 68px);
+  aspect-ratio: 520 / 358;
+  margin: -12px auto -12px clamp(24px, 6vw, 112px);
+  translate: 0 -2px;
+  z-index: 1;
+}
+.bird img { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; }
+.bird-rig { position: absolute; inset: 0; visibility: hidden; transform-origin: 59% 37%; pointer-events: none; }   /* the middle of its body */
+.bird.flying .bird-still { visibility: hidden; }
+.bird.flying .bird-rig { visibility: visible; }
+.bird .wing-l { transform-origin: 47.9% 27.2%; }   /* the shoulders */
+.bird .wing-r { transform-origin: 65.4% 28.2%; }
+/* the words it perches on stand in front of it: its tail hangs behind the letters */
+.masthead h1, .masthead nav, .section-head h2 { position: relative; z-index: 2; }
+@media (max-width: 819px) {
+  .bird { display: none; }   /* the masthead wraps here: no gap left to fly in */
+}
 
 /* ---------- layout ----------
    Narrow (the default): one column, statement, then publications, then about.
