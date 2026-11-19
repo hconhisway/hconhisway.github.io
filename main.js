@@ -132,13 +132,13 @@
 
 /* ---------- the swallow ----------
    It lives in the gap in the masthead and keeps an eye on the pointer. Point at something it can perch on
-   (a paper's figure, the name, a tab, the "Publications" heading) and it stirs where it is, beating its wings
-   and leaning that way; it goes only once the pointer settles there. A pointer that is just passing through
-   gets the stir and no flight. It takes off by beating its wings, flies a curved path with its body turned the
-   way it is going (seen from below, as you see a swallow overhead), brakes with a few hard beats and lands,
-   wings folded: on a figure's top-left corner, or on the last letter of the words. It stays while the pointer
-   stays (for a figure, anywhere on that paper), and a while after the pointer has gone to nothing else it
-   flies home. Rest the pointer on the bird itself and it gives chase: it flies after the pointer, circles it
+   (a paper, anywhere on it, the same area that makes its figure zoom out; the name; a tab; the "Publications"
+   heading) and it stirs where it is, beating its wings and leaning that way; it goes only once the pointer
+   settles there. A pointer that is just passing through gets the stir and no flight. It takes off by beating
+   its wings, flies a curved path with its body turned the way it is going (seen from below, as you see a
+   swallow overhead), brakes with a few hard beats and lands, wings folded: on the top-left corner of the
+   paper's figure, or on the last letter of the words. It stays while the pointer stays, and a while after the
+   pointer has gone to nothing else it flies home. Rest the pointer on the bird itself and it gives chase: it flies after the pointer, circles it
    twice and goes home (see chase() for how it keeps that looking like a bird when the pointer is flung about).
    It is drawn afresh every frame while it moves. */
 (function () {
@@ -353,7 +353,7 @@
 
   // ---------- where its attention goes ----------
   var BIRD = {};                                 // the bird itself, pointed at in its place
-  var PERCHES = '.pub-fig, .masthead h1 a, .masthead nav a, .section-head h2';
+  var WORDS = '.masthead h1 a, .masthead nav a, .section-head h2';
   var px = 0, py = 0, pt = 0, has = false, speed = 0;   // the pointer: where, when, whether known, how fast
   var hot = null, hotAt = 0, calmAt = 0, awayAt = 0, spent = null, timer = 0;
   var settle = SETTLE, linger = LINGER, away = AWAY;   // this time's waits: never quite the same twice
@@ -375,11 +375,10 @@
     var el = document.elementFromPoint(x, y);
     if (!el || !el.closest) return null;
     if (bird.contains(el)) return BIRD;
-    var t = el.closest(PERCHES);
-    if (t && !isFig(t) && !inWords(t, x, y)) t = null;                         // a heading: only its words
-    var paper = el.closest('.pub');
-    if (!t && isFig(seat) && paper && paper.contains(seat)) t = seat;          // still on the paper it sits on
-    return t;
+    var paper = el.closest('.pub');                                            // anywhere on a paper: its figure
+    if (paper) return paper.querySelector('.pub-fig');
+    var t = el.closest(WORDS);
+    return t && inWords(t, x, y) ? t : null;                                   // a heading: only its words
   }
   function point(h, t) {                         // the pointer has moved onto h (or onto nothing)
     if (h === hot) return;
