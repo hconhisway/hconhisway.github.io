@@ -53,7 +53,8 @@ img { max-width: 100%; }
 .masthead nav { display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
 /* a swallow in ink, in the gap between the name and the tabs, with open sky ahead of it.
    It flies about the page from here (main.js): onto the figures, the name, the tabs and the heading
-   it is pointed to, and after the pointer itself. Its negative margins keep it from making the masthead any taller. */
+   it is pointed to, after the pointer itself, and round the closing quote. Its negative margins keep it from
+   making the masthead any taller. */
 .bird {
   position: relative;
   display: block;
