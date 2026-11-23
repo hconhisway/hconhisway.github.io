@@ -132,8 +132,8 @@
 
 /* ---------- the swallow ----------
    It lives in the gap in the masthead and keeps an eye on the pointer. Point at something it can perch on
-   (a paper, anywhere on it, the same area that makes its figure zoom out; the name; a tab; the "Publications"
-   heading) and it stirs where it is, beating its wings and leaning that way; it goes only once the pointer
+   (a paper, anywhere on it, the same area that makes its figure zoom out, or a link to it in the statement;
+   the name; a tab; the "Publications" heading) and it stirs where it is, beating its wings and leaning that way; it goes only once the pointer
    settles there. A pointer that is just passing through gets the stir and no flight. It takes off by beating
    its wings, flies a curved path with its body turned the way it is going (seen from below, as you see a
    swallow overhead), brakes with a few hard beats and lands, wings folded: on the top-left corner of the
@@ -357,6 +357,14 @@
   // ---------- where its attention goes ----------
   var BIRD = {};                                 // the bird itself, pointed at in its place
   var QUOTE = document.querySelector('.closing em');   // the closing quote: it circles it
+  // the statement's links to papers, each with the figure of its paper in the list: the paper it links to by
+  // #id, or the one that carries a link to the same address
+  var LEADS = [].map.call(document.querySelectorAll('.statement a[href]'), function (a) {
+    var href = a.getAttribute('href'), pub = null;
+    if (href.charAt(0) === '#') pub = document.getElementById(href.slice(1));
+    else [].some.call(document.querySelectorAll('.pub a[href]'), function (b) { return b.getAttribute('href') === href && (pub = b.closest('.pub')); });
+    return [a, pub && pub.classList.contains('pub') ? pub.querySelector('.pub-fig') : null];
+  });
   var WORDS = '.masthead h1 a, .masthead nav a, .section-head h2';
   var px = 0, py = 0, pt = 0, has = false, speed = 0;   // the pointer: where, when, whether known, how fast
   var hot = null, hotAt = 0, calmAt = 0, awayAt = 0, spent = null, timer = 0;
@@ -382,6 +390,8 @@
     if (QUOTE && QUOTE.contains(el)) return QUOTE;
     var paper = el.closest('.pub');                                            // anywhere on a paper: its figure
     if (paper) return paper.querySelector('.pub-fig');
+    var lead = el.closest('.statement a');                                     // a link to a paper: that paper's figure
+    for (var i = 0; lead && i < LEADS.length; i++) if (LEADS[i][0] === lead) return LEADS[i][1];
     var t = el.closest(WORDS);
     return t && inWords(t, x, y) ? t : null;                                   // a heading: only its words
   }
